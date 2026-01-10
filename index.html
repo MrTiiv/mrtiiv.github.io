@@ -27,12 +27,13 @@
       background: url("jinx.jpg") no-repeat center right;
       background-size: cover;
       animation: bgMove 40s ease-in-out infinite alternate;
-      z-index: -1;
+      z-index: -2;
+      will-change: transform;
     }
 
     @keyframes bgMove {
-      from { transform: scale(1) translateX(0); }
-      to { transform: scale(1.08) translateX(-40px); }
+      from { transform: scale(1) translate3d(0,0,0); }
+      to { transform: scale(1.08) translate3d(-40px,0,0); }
     }
 
     /* CLICK TO ENTER */
@@ -75,6 +76,41 @@
       transform: translateY(0);
     }
 
+    /* CARD WRAPPER */
+    .card-wrapper {
+      position: relative;
+    }
+
+    /* GIF DIRECTLY OVER CARD */
+    .gif-floating {
+      position: absolute;
+      bottom: 100%;           /* hängt am oberen Rand der Box */
+      margin-bottom: 14px;    /* Abstand zur Box */
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      width: 180px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      filter: drop-shadow(0 0 25px rgba(88,101,242,0.7));
+      z-index: 3;
+      will-change: transform;
+    }
+
+    .gif-floating.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+      animation: floatGif 5s ease-in-out infinite;
+      pointer-events: auto; /* jetzt anklickbar */
+      cursor: pointer;      /* zeigt Pointer an */
+    }
+
+    @keyframes floatGif {
+      0%,100% { transform: translateX(-50%) translateY(0) scale(1); }
+      50% { transform: translateX(-50%) translateY(-8px) scale(1); }
+    }
+
+    /* CARD */
     .overlay {
       background: rgba(0,0,0,0.72);
       padding: 48px 60px;
@@ -82,6 +118,7 @@
       text-align: center;
       box-shadow: 0 0 60px rgba(88,101,242,0.45);
       animation: float 6s ease-in-out infinite;
+      will-change: transform;
     }
 
     @keyframes float {
@@ -89,24 +126,8 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* GIF */
-    .gif {
-      width: 180px;
-      margin: 0 auto 12px;
-      display: none;
-      opacity: 0;
-      transform: scale(0.85);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .gif.show {
-      display: block;
-      opacity: 1;
-      transform: scale(1);
-    }
-
     .overlay h2 {
-      font-size: 3.3rem;
+      font-size: clamp(2rem, 5vw, 3.3rem);
       letter-spacing: 3px;
       margin-bottom: 24px;
       cursor: pointer;
@@ -143,13 +164,16 @@
     .discord-name {
       margin-top: 14px;
       font-size: 1.1rem;
+      max-height: 0;
       opacity: 0;
-      transition: opacity 0.4s ease;
+      overflow: hidden;
+      transition: opacity 0.4s ease, max-height 0.4s ease;
       text-shadow: 0 0 12px #5865f2;
     }
 
     .discord-name.show {
       opacity: 1;
+      max-height: 50px;
     }
 
     @keyframes glow {
@@ -171,7 +195,6 @@
 <body>
 
   <div class="bg"></div>
-
   <audio id="hiSound" src="Hi.mp3"></audio>
 
   <!-- CLICK TO ENTER -->
@@ -184,20 +207,26 @@
 
   <!-- MAIN -->
   <div class="main" id="main">
-    <div class="overlay">
+    <div class="card-wrapper">
 
       <!-- GIF -->
-      <img src="reze.gif" class="gif" id="gif" alt="reze">
+      <img src="reze.gif" class="gif-floating" id="gif" alt="Reze GIF">
 
-      <h2 id="name">MrTiiv</h2>
+      <!-- CARD -->
+      <div class="overlay">
+        <h2 id="name">MrTiiv</h2>
 
-      <div class="buttons">
-        <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
-        <a class="button instagram" href="https://instagram.com/DEIN_INSTAGRAM" target="_blank">Instagram</a>
-        <div class="button discord" id="discordBtn">Discord</div>
+        <div class="buttons">
+          <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
+          <a class="button instagram" href="https://instagram.com/DEIN_INSTAGRAM" target="_blank">Instagram</a>
+          <div class="button discord" id="discordBtn">Discord</div>
+        </div>
+
+        <div class="discord-name" id="discordName">
+          Discord: DEIN_DISCORDNAME
+        </div>
       </div>
 
-      <div class="discord-name" id="discordName">Discord: DEIN_DISCORDNAME</div>
     </div>
   </div>
 
@@ -205,26 +234,31 @@
     const enter = document.getElementById("enter");
     const main = document.getElementById("main");
     const audio = document.getElementById("hiSound");
+    const name = document.getElementById("name");
+    const gif = document.getElementById("gif");
 
-    enter.addEventListener("click", () => {
-      audio.play().catch(() => {});
+    // ENTER SCREEN
+    enter.addEventListener("click", async () => {
+      try { await audio.play(); } catch(e) {}
       enter.style.opacity = "0";
       setTimeout(() => enter.remove(), 900);
       main.classList.add("show");
     });
 
+    // DISCORD BUTTON
     document.getElementById("discordBtn").addEventListener("click", () => {
       document.getElementById("discordName").classList.toggle("show");
     });
 
-    const name = document.getElementById("name");
-    const gif = document.getElementById("gif");
-    let gifShown = false;
-
+    // GIF SHOW/HIDE
     name.addEventListener("click", () => {
-      if (!gifShown) {
-        gif.classList.add("show");
-        gifShown = true;
+      gif.classList.toggle("show");
+    });
+
+    // GIF CLICK -> YOUTUBE
+    gif.addEventListener("click", () => {
+      if (gif.classList.contains("show")) {
+        window.open("https://youtu.be/ocBJ-lao81o?si=GkYW35H44cBiB9F5", "_blank");
       }
     });
   </script>
