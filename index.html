@@ -10,114 +10,100 @@
 
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+width: 100%;
+height: 100%;
+margin: 0;
+}
 
 
 body {
-min-height: 100vh;
-background-image: url("jinx.jpg");
+background: url("jinx.jpg") no-repeat center right fixed;
 background-size: cover;
-background-position: center right;
-background-repeat: no-repeat;
+font-family: "Orbitron", sans-serif;
 display: flex;
 align-items: center;
 justify-content: center;
-font-family: "Orbitron", sans-serif;
-overflow: hidden;
-}
-
-
-/* globales Abdunklungs-Overlay */
-body::before {
-content: "";
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.55);
-z-index: 0;
-}
-
-
-.overlay {
-position: relative;
-z-index: 1;
-background: rgba(0, 0, 0, 0.78);
-padding: 48px 56px;
-border-radius: 20px;
-text-align: center;
 color: white;
-animation: fadeIn 1.2s ease-out forwards;
+}
+
+
+/* simple dark overlay – maximal kompatibel */
+.overlay {
+background: rgba(0,0,0,0.7);
+padding: 40px 50px;
+border-radius: 18px;
+text-align: center;
+max-width: 90%;
 }
 
 
 h1 {
-font-size: 3.2rem;
-margin-bottom: 22px;
-letter-spacing: 2px;
-text-shadow:
-0 0 10px rgba(88, 101, 242, 0.9),
-0 0 22px rgba(88, 101, 242, 0.7);
-animation: glowPulse 4s ease-in-out infinite;
+font-size: 3rem;
+margin-bottom: 20px;
+text-shadow: 0 0 12px #5865f2;
 }
 
 
 .buttons {
 display: flex;
-gap: 16px;
-justify-content: center;
-margin-bottom: 22px;
 flex-wrap: wrap;
+gap: 14px;
+justify-content: center;
+margin-bottom: 18px;
 }
 
 
-a.button {
+.button {
 display: inline-flex;
 align-items: center;
-gap: 10px;
+gap: 8px;
+padding: 12px 22px;
+border-radius: 30px;
 text-decoration: none;
-padding: 14px 26px;
-border-radius: 999px;
-font-weight: 700;
 color: white;
-transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-box-shadow: 0 0 15px rgba(0,0,0,0.7);
-animation: float 6s ease-in-out infinite;
+font-weight: 700;
+background: #5865f2;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 
-a.button.github { background: #24292e; animation-delay: 0s; }
-a.button.instagram { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); animation-delay: 0.6s; }
-a.button.discord { background: #5865F2; animation-delay: 1.2s; }
-
-
-a.button:hover {
-transform: translateY(-4px) scale(1.06);
-box-shadow: 0 0 28px rgba(88, 101, 242, 1);
-filter: brightness(1.1);
+.button:hover {
+transform: scale(1.05);
+box-shadow: 0 0 18px #5865f2;
 }
 
 
-.icon {
-width: 18px;
-height: 18px;
-fill: white;
-}
+.github { background: #24292e; }
+.instagram { background: #e1306c; }
+.discord { background: #5865f2; }
 
 
-.hint {
+.audio {
 margin-top: 14px;
 font-size: 0.9rem;
 opacity: 0.85;
 }
+</style>
+</head>
+<body>
 
 
-/* YouTube Audio (unsichtbar) */
-.yt-audio {
-position: fixed;
-width: 1px;
-height: 1px;
-opacity: 0;
-pointer-events: none;
-}
+<div class="overlay">
+<h1>MrTiiv</h1>
 
 
+<div class="buttons">
+<a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
+<a class="button instagram" href="https://instagram.com/DEIN_INSTAGRAM" target="_blank">Instagram</a>
+<a class="button discord" href="https://discord.gg/DEININVITE" target="_blank">Discord</a>
+</div>
+
+
+<div class="audio">🔊 Musik kann aus Browser‑Gründen nicht automatisch starten</div>
+<div class="audio">YouTube‑Autoplay mit Sound ist auf GitHub Pages NICHT möglich</div>
+</div>
+
+
+</body>
 </html>
