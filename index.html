@@ -5,6 +5,7 @@
   <title>MrTiiv</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -22,7 +23,7 @@
       overflow: hidden;
     }
 
-    /* CLICK TO ENTER SCREEN */
+    /* CLICK TO ENTER */
     .enter-screen {
       position: fixed;
       inset: 0;
@@ -120,7 +121,9 @@
       text-shadow: 0 0 10px rgba(88,101,242,0.8);
     }
 
-    .discord-name.show { opacity: 1; }
+    .discord-name.show {
+      opacity: 1;
+    }
 
     @keyframes glow {
       0%, 100% { text-shadow: 0 0 14px #5865f2; }
@@ -146,7 +149,7 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <div class="main" id="main">
     <div class="overlay">
       <h2>MrTiiv</h2>
@@ -155,47 +158,6 @@
         <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
         <a class="button instagram" href="https://instagram.com/DEIN_INSTAGRAM" target="_blank">Instagram</a>
         <div class="button discord" id="discordBtn">Discord</div>
-      </div>
-
-      <div class="discord-name" id="discordName">Discord: DEIN_DISCORDNAME</div>
-    </div>
-  </div>
-
-  <!-- PROJECTS PANEL -->
-  <div class="projects-panel">
-    <h3>Projekte</h3>
-
-    <a class="project-card" href="https://github.com/MrTiiv/PROJEKT1" target="_blank">
-      <div class="project-left">
-        <span class="project-title">Projekt Eins</span>
-        <span class="project-desc">Noch in Entwicklung</span>
-      </div>
-      <span class="project-status">⏳</span>
-    </a>
-
-    <a class="project-card" href="https://github.com/MrTiiv/PROJEKT2" target="_blank">
-      <div class="project-left">
-        <span class="project-title">Projekt Zwei</span>
-        <span class="project-desc">Noch in Entwicklung</span>
-      </div>
-      <span class="project-status">⏳</span>
-    </a>
-  </div>
-
-      <!-- PROJECTS -->
-      <div class="projects">
-        <h3>Projekte</h3>
-
-        <a class="project" href="https://github.com/MrTiiv/PROJEKT1" target="_blank">
-          <span class="project-title">Projekt Eins</span>
-          <span class="project-status">⏳ In Arbeit</span>
-        </a>
-
-        <a class="project" href="https://github.com/MrTiiv/PROJEKT2" target="_blank">
-          <span class="project-title">Projekt Zwei</span>
-          <span class="project-status">⏳ In Arbeit</span>
-        </a>
-      </div>
       </div>
 
       <div class="discord-name" id="discordName">Discord: DEIN_DISCORDNAME</div>
