@@ -1,281 +1,158 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>MrTiiv</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>MrTiiv</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
-  <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
+<style>
+html,body{margin:0;width:100%;height:100%;font-family:Orbitron,sans-serif;color:#fff;overflow:hidden}
 
-    body {
-      font-family: "Orbitron", sans-serif;
-      color: white;
-      overflow: hidden;
-    }
+.bg{
+position:fixed;inset:0;
+background:url("jinx.jpg") center right/cover no-repeat;
+animation:bgMove 40s ease-in-out infinite alternate;
+z-index:-2
+}
 
-    /* BACKGROUND */
-    .bg {
-      position: fixed;
-      inset: 0;
-      background: url("jinx.jpg") no-repeat center right;
-      background-size: cover;
-      animation: bgMove 40s ease-in-out infinite alternate;
-      z-index: -2;
-    }
+@keyframes bgMove{from{transform:scale(1)}to{transform:scale(1.08) translateX(-40px)}}
 
-    @keyframes bgMove {
-      from { transform: scale(1) translateX(0); }
-      to { transform: scale(1.08) translateX(-40px); }
-    }
+.enter-screen{
+position:fixed;inset:0;background:rgba(0,0,0,.9);
+display:flex;align-items:center;justify-content:center;
+cursor:pointer;z-index:10;transition:.9s
+}
 
-    /* CLICK TO ENTER */
-    .enter-screen {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      cursor: pointer;
-      transition: opacity 0.9s ease;
-    }
+.enter-content{text-align:center;animation:pulse 2.5s infinite}
+.enter-content h1{font-size:3.8rem;text-shadow:0 0 30px #5865f2}
 
-    .enter-content {
-      text-align: center;
-      animation: pulse 2.5s infinite;
-    }
+.main{
+height:100%;display:flex;align-items:center;justify-content:center;
+opacity:0;transform:translateY(40px);
+transition:1.2s
+}
+.main.show{opacity:1;transform:none}
 
-    .enter-content h1 {
-      font-size: 3.8rem;
-      text-shadow: 0 0 30px #5865f2;
-      animation: flicker 4s infinite;
-    }
+.card-wrapper{position:relative}
 
-    /* MAIN */
-    .main {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
-    }
+.media-floating{
+position:absolute;bottom:100%;margin-bottom:0;
+left:50%;transform:translateX(-50%) scale(.9);
+width:200px;opacity:0;pointer-events:none;
+transition:.6s;filter:drop-shadow(0 0 25px #5865f2);z-index:3
+}
 
-    .main.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+.media-floating.show{
+opacity:1;transform:translateX(-50%) scale(1);
+pointer-events:auto;cursor:pointer;
+animation:float 5s ease-in-out infinite
+}
 
-    /* CARD WRAPPER */
-    .card-wrapper {
-      position: relative;
-    }
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
 
-    /* GIF + VIDEO POSITION */
-    .gif-floating {
-      position: absolute;
-      bottom: 100%;
-      margin-bottom: 0px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.9);
-      width: 180px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      filter: drop-shadow(0 0 25px rgba(88,101,242,0.7));
-      z-index: 3;
-    }
+.overlay{
+background:rgba(0,0,0,.72);padding:48px 60px;
+border-radius:26px;text-align:center;
+box-shadow:0 0 60px rgba(88,101,242,.45);
+animation:float 6s ease-in-out infinite
+}
 
-    .gif-floating.show {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-      animation: floatGif 5s ease-in-out infinite;
-      pointer-events: auto;
-      cursor: pointer;
-    }
+.overlay h2{font-size:3rem;cursor:pointer}
 
-    @keyframes floatGif {
-      0%,100% { transform: translateX(-50%) translateY(0) scale(1); }
-      50% { transform: translateX(-50%) translateY(-8px) scale(1); }
-    }
+.buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.button{padding:14px 28px;border-radius:999px;font-weight:700;
+background:#5865f2;color:white;text-decoration:none;cursor:pointer}
 
-    /* CARD */
-    .overlay {
-      background: rgba(0,0,0,0.72);
-      padding: 48px 60px;
-      border-radius: 26px;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(88,101,242,0.45);
-      animation: float 6s ease-in-out infinite;
-    }
+.github{background:#24292e}
+.instagram{background:#e1306c}
 
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
+.discord-name{
+margin-top:14px;opacity:0;max-height:0;
+transition:.4s;text-shadow:0 0 12px #5865f2
+}
+.discord-name.show{opacity:1;max-height:40px}
 
-    .overlay h2 {
-      font-size: clamp(2rem, 5vw, 3.3rem);
-      letter-spacing: 3px;
-      margin-bottom: 24px;
-      cursor: pointer;
-      animation: glow 3.5s infinite;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      padding: 14px 28px;
-      border-radius: 999px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      color: white;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
-
-    .button:hover {
-      transform: translateY(-6px) scale(1.08);
-      box-shadow: 0 0 35px #5865f2;
-    }
-
-    .github { background: #24292e; }
-    .instagram { background: #e1306c; }
-    .discord { background: #5865f2; }
-
-    .discord-name {
-      margin-top: 14px;
-      font-size: 1.1rem;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: opacity 0.4s ease, max-height 0.4s ease;
-      text-shadow: 0 0 12px #5865f2;
-    }
-
-    .discord-name.show {
-      opacity: 1;
-      max-height: 50px;
-    }
-
-    @keyframes glow {
-      0%,100% { text-shadow: 0 0 14px #5865f2; }
-      50% { text-shadow: 0 0 30px #7f8cff; }
-    }
-
-    @keyframes pulse {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
-    }
-
-    @keyframes flicker {
-      0%,19%,21%,100% { opacity: 1; }
-      20% { opacity: 0.6; }
-    }
-  </style>
+@keyframes pulse{50%{transform:scale(1.06)}}
+</style>
 </head>
+
 <body>
 
-  <div class="bg"></div>
-  <audio id="hiSound" src="Hi.mp3"></audio>
+<div class="bg"></div>
+<audio id="hiSound" src="Hi.mp3"></audio>
 
-  <!-- CLICK TO ENTER -->
-  <div class="enter-screen" id="enter">
-    <div class="enter-content">
-      <h1>MrTiiv</h1>
-      <span>CLICK TO ENTER</span>
-    </div>
+<div class="enter-screen" id="enter">
+  <div class="enter-content">
+    <h1>MrTiiv</h1>
+    <span>CLICK TO ENTER</span>
   </div>
+</div>
 
-  <!-- MAIN -->
-  <div class="main" id="main">
-    <div class="card-wrapper">
+<div class="main" id="main">
+  <div class="card-wrapper">
 
-      <!-- GIF -->
-      <img src="reze.gif" class="gif-floating" id="gif" alt="Reze GIF">
+    <!-- GIF -->
+    <img src="reze.gif" id="gif" class="media-floating">
 
-      <!-- VIDEO -->
-      <video
-        id="rezeVideo"
-        src="reze.mpg"
-        class="gif-floating"
-        style="display:none;"
-        playsinline
-      ></video>
+    <!-- VIDEO -->
+    <video
+      id="video"
+      src="reze.mp4"
+      class="media-floating"
+      muted
+      playsinline
+    ></video>
 
-      <!-- CARD -->
-      <div class="overlay">
-        <h2 id="name">MrTiiv</h2>
+    <div class="overlay">
+      <h2 id="name">MrTiiv</h2>
 
-        <div class="buttons">
-          <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
-          <a class="button instagram" href="https://instagram.com/mrtiiv" target="_blank">Instagram</a>
-          <div class="button discord" id="discordBtn">Discord</div>
-        </div>
-
-        <div class="discord-name" id="discordName">
-          Discord: mrtiiv
-        </div>
+      <div class="buttons">
+        <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
+        <a class="button instagram" href="https://instagram.com/mrtiiv" target="_blank">Instagram</a>
+        <div class="button" id="discordBtn">Discord</div>
       </div>
 
+      <div class="discord-name" id="discordName">Discord: mrtiiv</div>
     </div>
   </div>
+</div>
 
-  <script>
-    const enter = document.getElementById("enter");
-    const main = document.getElementById("main");
-    const audio = document.getElementById("hiSound");
-    const name = document.getElementById("name");
-    const gif = document.getElementById("gif");
-    const video = document.getElementById("rezeVideo");
+<script>
+const enter=document.getElementById("enter");
+const main=document.getElementById("main");
+const audio=document.getElementById("hiSound");
+const gif=document.getElementById("gif");
+const video=document.getElementById("video");
+let played=false;
 
-    let videoPlayed = false;
+enter.onclick=async()=>{
+try{await audio.play()}catch{}
+enter.style.opacity=0;
+setTimeout(()=>enter.remove(),900);
+main.classList.add("show");
+};
 
-    // ENTER
-    enter.addEventListener("click", async () => {
-      try { await audio.play(); } catch(e) {}
-      enter.style.opacity = "0";
-      setTimeout(() => enter.remove(), 900);
-      main.classList.add("show");
-    });
+document.getElementById("discordBtn").onclick=()=>{
+document.getElementById("discordName").classList.toggle("show");
+};
 
-    // DISCORD
-    document.getElementById("discordBtn").addEventListener("click", () => {
-      document.getElementById("discordName").classList.toggle("show");
-    });
+document.getElementById("name").onclick=()=>{
+gif.classList.toggle("show");
+};
 
-    // SHOW GIF
-    name.addEventListener("click", () => {
-      gif.classList.toggle("show");
-    });
+gif.onclick=()=>{
+if(played)return;
+played=true;
 
-    // GIF → VIDEO (ONCE)
-    gif.addEventListener("click", () => {
-      if (!gif.classList.contains("show") || videoPlayed) return;
-
-      videoPlayed = true;
-      gif.style.display = "none";
-
-      video.style.display = "block";
-      video.classList.add("show");
-      video.play().catch(() => {});
-    });
-  </script>
+gif.style.display="none";
+video.style.display="block";
+video.classList.add("show");
+video.muted=false;
+video.play();
+};
+</script>
 
 </body>
 </html>
