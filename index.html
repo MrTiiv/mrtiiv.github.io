@@ -8,73 +8,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-html,body{margin:0;width:100%;height:100%;font-family:Orbitron,sans-serif;color:#fff;overflow:hidden}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  font-family:Orbitron,sans-serif;
+  color:white;
+  overflow:hidden;
+}
 
+/* BACKGROUND */
 .bg{
-position:fixed;inset:0;
-background:url("jinx.jpg") center right/cover no-repeat;
-animation:bgMove 40s ease-in-out infinite alternate;
-z-index:-2
+  position:fixed;
+  inset:0;
+  background:url("jinx.jpg") center right / cover no-repeat;
+  animation:bgMove 40s ease-in-out infinite alternate;
+  z-index:-2;
+}
+@keyframes bgMove{
+  from{transform:scale(1)}
+  to{transform:scale(1.08) translateX(-40px)}
 }
 
-@keyframes bgMove{from{transform:scale(1)}to{transform:scale(1.08) translateX(-40px)}}
-
+/* ENTER SCREEN */
 .enter-screen{
-position:fixed;inset:0;background:rgba(0,0,0,.9);
-display:flex;align-items:center;justify-content:center;
-cursor:pointer;z-index:10;transition:.9s
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:10;
+  transition:opacity .9s ease;
 }
-
 .enter-content{text-align:center;animation:pulse 2.5s infinite}
 .enter-content h1{font-size:3.8rem;text-shadow:0 0 30px #5865f2}
 
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+}
+
+/* MAIN CENTER */
 .main{
-height:100%;display:flex;align-items:center;justify-content:center;
-opacity:0;transform:translateY(40px);
-transition:1.2s
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.2s ease;
 }
 .main.show{opacity:1;transform:none}
 
+/* WRAPPER */
 .card-wrapper{position:relative}
 
+/* GIF + VIDEO */
 .media-floating{
-position:absolute;bottom:100%;margin-bottom:0;
-left:50%;transform:translateX(-50%) scale(.9);
-width:200px;opacity:0;pointer-events:none;
-transition:.6s;filter:drop-shadow(0 0 25px #5865f2);z-index:3
+  position:absolute;
+  bottom:100%;
+  margin-bottom:0;
+  left:50%;
+  transform:translateX(-50%) scale(.9);
+  width:200px;
+  opacity:0;
+  pointer-events:none;
+  transition:.6s ease;
+  filter:drop-shadow(0 0 25px #5865f2);
+  z-index:3;
 }
-
 .media-floating.show{
-opacity:1;transform:translateX(-50%) scale(1);
-pointer-events:auto;cursor:pointer;
-animation:float 5s ease-in-out infinite
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+  pointer-events:auto;
+  cursor:pointer;
+  animation:floatMedia 5s ease-in-out infinite;
+}
+@keyframes floatMedia{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-8px)}
 }
 
-@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
-
+/* CARD */
 .overlay{
-background:rgba(0,0,0,.72);padding:48px 60px;
-border-radius:26px;text-align:center;
-box-shadow:0 0 60px rgba(88,101,242,.45);
-animation:float 6s ease-in-out infinite
+  background:rgba(0,0,0,.72);
+  padding:48px 60px;
+  border-radius:26px;
+  text-align:center;
+  box-shadow:0 0 60px rgba(88,101,242,.45);
+  animation:floatCard 6s ease-in-out infinite;
+}
+@keyframes floatCard{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
 }
 
-.overlay h2{font-size:3rem;cursor:pointer}
+.overlay h2{
+  font-size:clamp(2rem,5vw,3.3rem);
+  letter-spacing:3px;
+  cursor:pointer;
+  text-shadow:0 0 20px #5865f2;
+}
 
-.buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
-.button{padding:14px 28px;border-radius:999px;font-weight:700;
-background:#5865f2;color:white;text-decoration:none;cursor:pointer}
-
+.buttons{
+  margin-top:24px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.button{
+  padding:14px 28px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  color:white;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.button:hover{transform:translateY(-4px) scale(1.08)}
 .github{background:#24292e}
 .instagram{background:#e1306c}
+.discord{background:#5865f2}
 
 .discord-name{
-margin-top:14px;opacity:0;max-height:0;
-transition:.4s;text-shadow:0 0 12px #5865f2
+  margin-top:14px;
+  opacity:0;
+  max-height:0;
+  overflow:hidden;
+  transition:.4s ease;
+  text-shadow:0 0 12px #5865f2;
 }
-.discord-name.show{opacity:1;max-height:40px}
-
-@keyframes pulse{50%{transform:scale(1.06)}}
+.discord-name.show{
+  opacity:1;
+  max-height:40px;
+}
 </style>
 </head>
 
@@ -83,6 +153,7 @@ transition:.4s;text-shadow:0 0 12px #5865f2
 <div class="bg"></div>
 <audio id="hiSound" src="Hi.mp3"></audio>
 
+<!-- CLICK TO ENTER -->
 <div class="enter-screen" id="enter">
   <div class="enter-content">
     <h1>MrTiiv</h1>
@@ -90,6 +161,7 @@ transition:.4s;text-shadow:0 0 12px #5865f2
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="main" id="main">
   <div class="card-wrapper">
 
@@ -105,52 +177,57 @@ transition:.4s;text-shadow:0 0 12px #5865f2
       playsinline
     ></video>
 
+    <!-- CARD -->
     <div class="overlay">
       <h2 id="name">MrTiiv</h2>
 
       <div class="buttons">
         <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
         <a class="button instagram" href="https://instagram.com/mrtiiv" target="_blank">Instagram</a>
-        <div class="button" id="discordBtn">Discord</div>
+        <div class="button discord" id="discordBtn">Discord</div>
       </div>
 
-      <div class="discord-name" id="discordName">Discord: mrtiiv</div>
+      <div class="discord-name" id="discordName">
+        Discord: mrtiiv
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-const enter=document.getElementById("enter");
-const main=document.getElementById("main");
-const audio=document.getElementById("hiSound");
-const gif=document.getElementById("gif");
-const video=document.getElementById("video");
-let played=false;
+const enter = document.getElementById("enter");
+const main = document.getElementById("main");
+const audio = document.getElementById("hiSound");
+const gif = document.getElementById("gif");
+const video = document.getElementById("video");
+let played = false;
 
-enter.onclick=async()=>{
-try{await audio.play()}catch{}
-enter.style.opacity=0;
-setTimeout(()=>enter.remove(),900);
-main.classList.add("show");
+enter.onclick = async () => {
+  try { await audio.play(); } catch {}
+  enter.style.opacity = 0;
+  setTimeout(() => enter.remove(), 900);
+  main.classList.add("show");
 };
 
-document.getElementById("discordBtn").onclick=()=>{
-document.getElementById("discordName").classList.toggle("show");
+document.getElementById("discordBtn").onclick = () => {
+  document.getElementById("discordName").classList.toggle("show");
 };
 
-document.getElementById("name").onclick=()=>{
-gif.classList.toggle("show");
+document.getElementById("name").onclick = () => {
+  gif.classList.toggle("show");
 };
 
-gif.onclick=()=>{
-if(played)return;
-played=true;
+gif.onclick = () => {
+  if (played) return;
+  played = true;
 
-gif.style.display="none";
-video.style.display="block";
-video.classList.add("show");
-video.muted=false;
-video.play();
+  gif.style.display = "none";
+  video.style.display = "block";
+  video.classList.add("show");
+
+  video.muted = false;
+  video.volume = 0.2;   // 🔊 20 %
+  video.play();
 };
 </script>
 
