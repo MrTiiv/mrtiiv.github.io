@@ -65,7 +65,7 @@ html,body{
 /* WRAPPER */
 .card-wrapper{position:relative}
 
-/* GIF + VIDEO */
+/* GIF */
 .media-floating{
   position:absolute;
   bottom:100%;
@@ -112,6 +112,13 @@ html,body{
   text-shadow:0 0 20px #5865f2;
 }
 
+.ai-note{
+  margin-top:12px;
+  font-size:.8rem;
+  opacity:.8;
+  text-shadow:0 0 8px #5865f2;
+}
+
 .buttons{
   margin-top:24px;
   display:flex;
@@ -132,6 +139,7 @@ html,body{
 .github{background:#24292e}
 .instagram{background:#e1306c}
 .discord{background:#5865f2}
+.steam{background:#1b2838}
 
 .discord-name{
   margin-top:14px;
@@ -168,22 +176,18 @@ html,body{
     <!-- GIF -->
     <img src="reze.gif" id="gif" class="media-floating">
 
-    <!-- VIDEO -->
-    <video
-      id="video"
-      src="reze.mp4"
-      class="media-floating"
-      muted
-      playsinline
-    ></video>
-
     <!-- CARD -->
     <div class="overlay">
       <h2 id="name">MrTiiv</h2>
 
+      <div class="ai-note">
+        AI DISCLAIMER: THIS PAGE IS 100% WRITTEN WITH AI (SORRY!!)
+      </div>
+
       <div class="buttons">
         <a class="button github" href="https://github.com/MrTiiv" target="_blank">GitHub</a>
         <a class="button instagram" href="https://instagram.com/mrtiiv" target="_blank">Instagram</a>
+        <a class="button steam" href="https://steamcommunity.com/id/MrTiiv/" target="_blank">Steam</a>
         <div class="button discord" id="discordBtn">Discord</div>
       </div>
 
@@ -199,8 +203,6 @@ const enter = document.getElementById("enter");
 const main = document.getElementById("main");
 const audio = document.getElementById("hiSound");
 const gif = document.getElementById("gif");
-const video = document.getElementById("video");
-let played = false;
 
 enter.onclick = async () => {
   try { await audio.play(); } catch {}
@@ -215,19 +217,6 @@ document.getElementById("discordBtn").onclick = () => {
 
 document.getElementById("name").onclick = () => {
   gif.classList.toggle("show");
-};
-
-gif.onclick = () => {
-  if (played) return;
-  played = true;
-
-  gif.style.display = "none";
-  video.style.display = "block";
-  video.classList.add("show");
-
-  video.muted = false;
-  video.volume = 0.2;   // 🔊 20 %
-  video.play();
 };
 </script>
 
