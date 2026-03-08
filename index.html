@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Random Astronomy Image</title>
-  <style>
-    body {
-      background: #0b0f1a;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 20px;
-    }
+<meta charset="UTF-8">
+<title>Random Astronomy Image</title>
 
-    img {
-      max-width: 95%;
-      max-height: 85vh;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
+<style>
+body{
+  background:#0b0f1a;
+  color:white;
+  text-align:center;
+  font-family:Arial;
+  padding:20px;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      background: #2a6cff;
-      color: white;
-    }
-  </style>
+img{
+  max-width:95%;
+  max-height:85vh;
+  border-radius:10px;
+}
+
+button{
+  margin-top:20px;
+  padding:10px 20px;
+  font-size:16px;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Random Image from r/Astronomy</h1>
+<h1>Random Image from r/AstronomyPorn</h1>
+<p id="title">Loading...</p>
 
-<img id="astroImage" src="" alt="Loading...">
+<img id="astroImage">
 
 <br>
 <button onclick="loadImage()">New Image</button>
 
 <script>
-async function loadImage() {
 
-  const res = await fetch("https://www.reddit.com/r/Astronomy/top.json?limit=100&t=week");
-  const data = await res.json();
+async function loadImage(){
 
-  const posts = data.data.children
-    .map(p => p.data)
-    .filter(p => p.post_hint === "image");
+  try{
 
-  const randomPost = posts[Math.floor(Math.random() * posts.length)];
+    const redditURL = "https://www.reddit.com/r/AstronomyPorn/top.json?limit=100&t=week";
+    const proxy = "https://api.allorigins.win/raw?url=" + encodeURIComponent(redditURL);
 
-  document.getElementById("astroImage").src = randomPost.url;
+    const res = await fetch(proxy);
+    const data = await res.json();
+
+    const posts = data.data.children
+      .map(p => p.data)
+      .filter(p => p.preview && p.preview.images);
+
+    const random = posts[Math.floor(Math.random()*posts.length)];
+
+    const img = random.preview.images[0].source.url.replace(/&amp;/g,"&");
+
+    document.getElementById("astroImage").src = img;
+    document.getElementById("title").innerText = random.title;
+
+  }catch(e){
+
+    document.getElementById("title").innerText = "Failed to load image";
+
+  }
+
 }
 
 loadImage();
+
 </script>
 
 </body>
