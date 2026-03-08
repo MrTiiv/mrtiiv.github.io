@@ -1,1 +1,63 @@
-<p><img src="/sotuff.png" alt="" /></p>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Astronomy Image</title>
+  <style>
+    body {
+      background: #0b0f1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    img {
+      max-width: 95%;
+      max-height: 85vh;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #2a6cff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Random Image from r/Astronomy</h1>
+
+<img id="astroImage" src="" alt="Loading...">
+
+<br>
+<button onclick="loadImage()">New Image</button>
+
+<script>
+async function loadImage() {
+
+  const res = await fetch("https://www.reddit.com/r/Astronomy/top.json?limit=100&t=week");
+  const data = await res.json();
+
+  const posts = data.data.children
+    .map(p => p.data)
+    .filter(p => p.post_hint === "image");
+
+  const randomPost = posts[Math.floor(Math.random() * posts.length)];
+
+  document.getElementById("astroImage").src = randomPost.url;
+}
+
+loadImage();
+</script>
+
+</body>
+</html>
