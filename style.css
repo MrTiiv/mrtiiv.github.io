@@ -91,13 +91,24 @@ body {
     width: 100%;
     text-align: center;
 
-    background: linear-gradient(90deg, var(--accentColor), white, var(--accentColor));
+    background: linear-gradient(
+        90deg,
+        var(--accentColor),
+        white,
+        var(--accentColor)
+    );
+    background-size: 200% auto;
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    text-shadow: 0 0 8px var(--accentColor),
-                 0 0 16px var(--accentColor);
+    /* weicher Glow */
+    text-shadow: 0 0 6px var(--accentColor),
+                 0 0 12px var(--accentColor);
+
+    /* langsame, flüssige Animation */
+    animation: glowFlow 8s ease-in-out infinite;
 }
 
 /*-------------------------animations-----------------------*/
@@ -130,6 +141,17 @@ body {
     }
 }
 
+@keyframes glowFlow {
+    0% {
+        background-position: 0% center;
+    }
+    50% {
+        background-position: 100% center;
+    }
+    100% {
+        background-position: 0% center;
+    }
+}
 
 /*-------------------------popup------------------------*/
 /* credits: https://www.youtube.com/watch?v=lAS2glU0xlc */
