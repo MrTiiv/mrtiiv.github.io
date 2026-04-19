@@ -83,32 +83,18 @@ body {
 }
 
 #hashtag {
-    position: relative;
-    padding-bottom: 20px;
-    font-size: 1rem;
-    display: block;
-    font-family: var(--font);
-    width: 100%;
+    font-size: 1.2rem;
     text-align: center;
 
-    background: linear-gradient(
-        90deg,
-        var(--accentColor),
-        white,
-        var(--accentColor)
-    );
-    background-size: 200% auto;
+    background: linear-gradient(90deg, red, white, red);
+    background-size: 200% 100%;
 
     -webkit-background-clip: text;
     background-clip: text;
+    color: transparent;
     -webkit-text-fill-color: transparent;
 
-    /* weicher Glow */
-    text-shadow: 0 0 6px var(--accentColor),
-                 0 0 12px var(--accentColor);
-
-    /* langsame, flüssige Animation */
-    animation: glowFlow 8s ease-in-out infinite;
+    animation: glowFlow 4s linear infinite;
 }
 
 /*-------------------------animations-----------------------*/
@@ -142,15 +128,8 @@ body {
 }
 
 @keyframes glowFlow {
-    0% {
-        background-position: 0% center;
-    }
-    50% {
-        background-position: 100% center;
-    }
-    100% {
-        background-position: 0% center;
-    }
+    0% { background-position: 0% center; }
+    100% { background-position: 100% center; }
 }
 
 /*-------------------------popup------------------------*/
