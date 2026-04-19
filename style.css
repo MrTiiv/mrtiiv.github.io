@@ -101,20 +101,23 @@ body {
     left: 0;
     width: 100%;
 
-    background: linear-gradient(90deg, transparent, white, transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #00ffff,   /* 👈 CYAN statt weiß */
+        transparent
+    );
+
     background-size: 200% 100%;
 
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 
-    /* Glow Effekt */
-    text-shadow: 0 0 8px var(--accentColor),
-                 0 0 16px var(--accentColor);
+    text-shadow: 0 0 8px #00ffff,
+                 0 0 16px #00ffff;
 
-    /* Smooth Animation */
     animation: glowFlow 6s linear infinite;
-
     pointer-events: none;
 }
 /*-------------------------animations-----------------------*/
