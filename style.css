@@ -83,20 +83,40 @@ body {
 }
 
 #hashtag {
-    font-size: 1.2rem;
+    position: relative;
     text-align: center;
+    font-family: var(--font);
+    font-size: 1.2rem;
+}
 
-    background: linear-gradient(90deg, red, white, red);
+/* Basis-Text (immer sichtbar!) */
+#hashtag .base {
+    color: var(--accentColor);
+}
+
+/* Glow Layer */
+#hashtag .glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    background: linear-gradient(90deg, transparent, white, transparent);
     background-size: 200% 100%;
 
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    -webkit-text-fill-color: transparent;
 
-    animation: glowFlow 4s linear infinite;
+    /* Glow Effekt */
+    text-shadow: 0 0 8px var(--accentColor),
+                 0 0 16px var(--accentColor);
+
+    /* Smooth Animation */
+    animation: glowFlow 6s linear infinite;
+
+    pointer-events: none;
 }
-
 /*-------------------------animations-----------------------*/
 @keyframes transitionAnimation {
     0% {
@@ -128,8 +148,12 @@ body {
 }
 
 @keyframes glowFlow {
-    0% { background-position: 0% center; }
-    100% { background-position: 100% center; }
+    0% {
+        background-position: -100% center;
+    }
+    100% {
+        background-position: 100% center;
+    }
 }
 
 /*-------------------------popup------------------------*/
