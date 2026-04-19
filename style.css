@@ -103,12 +103,14 @@ body {
 
     background: linear-gradient(
         90deg,
-        transparent,
-        #00ffff,   /* 👈 CYAN statt weiß */
-        transparent
+        transparent 0%,
+        transparent 40%,
+        #00ffff 50%, 
+        transparent 60%,
+        transparent 100%
     );
 
-    background-size: 200% 100%;
+    background-size: 250% 100%;
 
     -webkit-background-clip: text;
     background-clip: text;
@@ -117,7 +119,7 @@ body {
     text-shadow: 0 0 8px #00ffff,
                  0 0 16px #00ffff;
 
-    animation: glowFlow 6s linear infinite;
+    animation: glowFlow 4s linear infinite;
     pointer-events: none;
 }
 /*-------------------------animations-----------------------*/
@@ -152,10 +154,10 @@ body {
 
 @keyframes glowFlow {
     0% {
-        background-position: -100% center;
+        background-position: -150% center;
     }
     100% {
-        background-position: 100% center;
+        background-position: 150% center;
     }
 }
 
