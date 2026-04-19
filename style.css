@@ -85,24 +85,20 @@ body {
 #hashtag {
     position: relative;
     padding-bottom: 20px;
-    color: var(--accentColor);
     font-size: 1rem;
     display: block;
     font-family: var(--font);
     width: 100%;
     text-align: center;
 
-    /*  animation   */
-    overflow: hidden;
-    background: linear-gradient(90deg, var(--bgColor), var(--accentColor), var(--bgColor));
-    background-repeat: no-repeat;
-    background-size: 80%;
-    animation: animate 3s linear var(--delay) infinite;
+    background: linear-gradient(90deg, var(--accentColor), white, var(--accentColor));
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0);
-}
+    -webkit-text-fill-color: transparent;
 
+    text-shadow: 0 0 8px var(--accentColor),
+                 0 0 16px var(--accentColor);
+}
 
 /*-------------------------animations-----------------------*/
 @keyframes transitionAnimation {
